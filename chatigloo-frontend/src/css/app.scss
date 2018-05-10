@@ -1,0 +1,82 @@
+@import 'variable';
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+*{
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.app-messenger{
+  display: flex;
+  flex-direction: column;
+  .header{
+
+    height: $header-height;
+    background: red;
+    display: flex;
+    flex-direction: row;
+    .left{
+      width: $left-sidebar;
+      .actions{
+        line-height: $header-height;
+        padding: 0 10px;
+        button{
+
+        }
+      }
+    }
+    .content{
+      flex-grow: 1;
+      h2{
+        line-height: $header-height;
+        text-align: center;
+      }
+    }
+    .right{
+      width: $right-sidebar;
+      .user-bar{
+        line-height: $header-height;
+        display:flex;
+        justify-content: flex-end;
+        padding: 0 10px;
+        .profile-name{
+          padding-right: 10px;
+        }
+        .profile-image{
+          img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 10px 0 0 0;
+          }
+        }
+      }
+    }
+
+  }
+  .main{
+    height:100%;
+    display: flex;
+
+    .sidebar-left{
+      width: $left-sidebar;
+
+    }
+    .sidebar-right{
+      width:$right-sidebar
+    }
+    .content{
+      flex-grow: 1;
+      background: green;
+    }
+  }
+}
+
+
+
+/*# sourceMappingURL=app.css.map */
