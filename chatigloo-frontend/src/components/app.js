@@ -4,17 +4,20 @@ import Messenger from './messenger'
 
 export default class App extends Component{
 
-  constructor(props){
-    super(props);
+	constructor(props){
+		super(props);
 
-    this.state = {
-      store: new Store(this),
-    }
-  }
-    render(){
-      const {store} = this.state;
-        return <div className="app-wrapper">
-        <Messenger store={store}/>
-        </div>
-    }
+		this.state = {
+
+			store: new Store(this),
+		}
+	}
+
+	render(){
+
+		const {store} = this.state;
+		return <div className="app-wrapper">
+				<Messenger store={store} />
+			</div>
+	}
 }
