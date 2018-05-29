@@ -35,9 +35,9 @@ export default class SearchUser extends Component{
 
 			<div className="user-list">
 
-			{users.map((user, index) => {
+			{users.map((user, idx) => {
 
-				return (<div onClick={() => this.handleOnClick(user)} key={index} className="user">
+				return (<div onClick={() => this.handleOnClick(user)} key={idx} className="user">
 					<img src={_.get(user, 'avatar')} alt="..." />
 					<h2>{_.get(user, 'name')}</h2>
 				</div>)

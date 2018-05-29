@@ -6,6 +6,8 @@ import {ObjectID} from '../helpers/objectid'
 import SearchUser from './search-user'
 import moment from 'moment'
 import UserBar from './user-bar'
+import create from '../images/create.png'
+import chatigloo from '../images/chatigloo.png'
 
 
 export default class Messenger extends Component {
@@ -16,7 +18,7 @@ export default class Messenger extends Component {
 
         this.state = {
             height: window.innerHeight,
-            newMessage: 'Hello there...',
+            
             searchUser: "",
             showSearchUser: false,
         }
@@ -39,9 +41,6 @@ export default class Messenger extends Component {
         const total = members.size > maxDisplay ? maxDisplay : members.size;
 
         const avatars = members.map((user, index) => {
-
-
-
             return index < maxDisplay ?  <img key={index} src={_.get(user, 'avatar')} alt={_.get(user, 'name')} /> : null
 
         });
@@ -208,10 +207,10 @@ export default class Messenger extends Component {
             <div style={style} className="app-messenger">
                 <div className="header">
                     <div className="left">
-                        <button className="left-action"><i className="icon-settings-streamline-1"/></button>
-                        <button onClick={this._onCreateChannel} className="right-action"><i
-                            className="icon-edit-modify-streamline"/></button>
-                        <h2>Messenger</h2>
+                        <button className="left-action"> <img src={chatigloo} style={{width: 40, height: 40 }}/></button>
+
+                      <button onClick={this._onCreateChannel} className="right-action"> <img src={create} /></button>
+                          <h2>Chatigloo</h2>
                     </div>
                     <div className="content">
 
@@ -227,11 +226,11 @@ export default class Messenger extends Component {
                                     }} key={key}>{_.get(user, 'name')}</span>
                                 })
                             }
-                            <input placeholder="Type name of person..." onChange={(event) => {
+                            <input placeholder=" Search..." onChange={(event) => {
 
                                 const searchUserText = _.get(event, 'target.value');
 
-                                //console.log("searching for user with name: ", searchUserText)
+
 
                                 this.setState({
                                     searchUser: searchUserText,

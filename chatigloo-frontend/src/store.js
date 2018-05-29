@@ -12,7 +12,6 @@ export default class Store {
         this.channels = new OrderedMap();
         this.activeChannelId = null;
 
-
         this.token = this.getTokenFromLocalStore();
 
         this.user = this.getUserFromLocalStorage();
@@ -90,20 +89,19 @@ export default class Store {
         return `https://api.adorable.io/avatars/100/${user._id}.png`
     }
 
-    startSearchUsers(q = "") {
+    startSearchUsers(query = "") {
 
-        // query to backend servr and get list of users.
-        const data = {search: q};
+        // query backend servr and get list of users
+        const data = {search: query};
 
+console.log(data)
         this.search.users = this.search.users.clear();
 
-        this.service.post('api/users/search', data).then((response) => {
-
+        this.service.post('api/users/search', data).then((res) => {
             // list of users matched.
-            const users = _.get(response, 'data', []);
+            const users = _.get(res, 'data', []);
 
             _.each(users, (user) => {
-
                 // cache to this.users
                 // add user to this.search.users
 
@@ -116,15 +114,12 @@ export default class Store {
 
             });
 
-
             // update component
             this.update();
 
-
         }).catch((err) => {
 
-
-            //console.log("searching errror", err);
+      console.log("searching errror", err);
         })
 
     }
@@ -293,7 +288,7 @@ export default class Store {
             email: userEmail,
             password: password,
         }
-        //console.log("Ttrying to login with user info", user);
+        //console.log("Trying to login with user info", user);
 
 
         return new Promise((resolve, reject) => {
@@ -303,7 +298,7 @@ export default class Store {
 
             this.service.post('api/users/login', user).then((response) => {
 
-                // that mean successful user logged in
+                // that means successful user logged in
 
                 const accessToken = _.get(response, 'data');
                 const user = _.get(accessToken, 'user');
@@ -355,13 +350,11 @@ export default class Store {
     }
 
     addUserToChannel(channelId, userId) {
-
-
         const channel = this.channels.get(channelId);
 
         if (channel) {
 
-            // now add this member id to channels members.
+            //add  member id to channels members
             channel.members = channel.members.set(userId, true);
             this.channels = this.channels.set(channelId, channel);
             this.update();
@@ -536,7 +529,7 @@ export default class Store {
         }
         this.update();
 
-        // console.log(JSON.stringify(this.messages.toJS()));
+        console.log(JSON.stringify(this.messages.toJS()));
 
     }
 
@@ -567,6 +560,7 @@ export default class Store {
         return messages.valueSeq();
     }
 
+    // Add members from channel
     getMembersFromChannel(channel) {
 
         let members = new OrderedMap();
@@ -593,8 +587,8 @@ export default class Store {
         return members.valueSeq();
     }
 
-    addChannel(index, channel = {}) {
-        this.channels = this.channels.set(`${index}`, channel);
+    addChannel(i, channel = {}) {
+        this.channels = this.channels.set(`${i}`, channel);
 
         this.update();
     }
@@ -602,9 +596,6 @@ export default class Store {
     getChannels() {
 
         //return this.channels.valueSeq();
-
-        // we need to sort channel by date , the last one will list on top.
-
 
         this.channels = this.channels.sort((a, b) => a.updated < b.updated);
 
